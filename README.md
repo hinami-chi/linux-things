@@ -53,6 +53,83 @@ sudo cp ext/nginx.conf /etc/nginx/sites-available/bancho.conf
 sudo ln -s /etc/nginx/sites-available/bancho.conf /etc/nginx/sites-enabled/bancho.conf
 Editar el puto bancho.conf, donde cmyui es tu user y cmyui es el nombre de tu dominio
 sudo xed /etc/nginx/sites-available/bancho.conf
+Mi ejemplo:
+##########################################################################################################################
+# NOTE: if you wish to only connect using fallback, you can
+# remove all ssl related content from the configuration.
+
+upstream bancho {
+	server unix:/tmp/bancho.sock fail_timeout=0;
+}
+
+# c[e4]?.ppy.sh is used for bancho
+# osu.ppy.sh is used for /web, /api, etc.
+# a.ppy.sh is used for osu! avatars
+
+server {
+	listen 443 ssl;
+
+	# XXX: you'll need to edit this to match your domain (mine's hinamizada.xyz)
+	server_name ~^(?:c[e4]?|osu|b|api)\.hinamizada\.xyz$;
+
+	# XXX: you'll need to edit this to match your certificate and key
+	ssl_certificate     /home/hinami/certs/cert.pem;
+	ssl_certificate_key /home/hinami/certs/key.pem;
+
+	# TODO: further ssl configuration
+	ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:@SECLEVEL=1";
+
+	location / {
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Real-IP  $remote_addr;
+		proxy_set_header Host $http_host;
+		add_header Access-Control-Allow-Origin *;
+		proxy_redirect off;
+		proxy_pass http://bancho;
+	}
+}
+
+server {
+	listen 443 ssl;
+
+	# XXX: you'll need to edit this to match your domain (mine's hinamizada.xyz)
+	server_name assets.hinamizada.xyz;
+
+	# XXX: you'll need to edit this to match your certificate and key
+	ssl_certificate     /home/hinami/certs/cert.pem;
+	ssl_certificate_key /home/hinami/certs/key.pem;
+
+	# TODO: further ssl configuration
+	ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:@SECLEVEL=1";
+
+	location / {
+		default_type image/png;
+		# XXX: you'll need to edit this to match your bancho.py .data/assets directory
+		root /home/hinami/bancho.py/.data/assets/;
+	}
+}
+
+server {
+	listen 443 ssl;
+
+	# XXX: you'll need to edit this to match your domain (mine's hinamizada.xyz)
+	server_name a.hinamizada.xyz;
+
+	# XXX: you'll need to edit this to match your certificate and key
+	ssl_certificate     /home/hinami/certs/cert.pem;
+	ssl_certificate_key /home/hinami/certs/key.pem;
+
+	# TODO: further ssl configuration
+	ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:@SECLEVEL=1";
+
+	add_header Cache-Control no-cache;
+
+	location / {
+		root /home/hinami/bancho.py/.data/avatars;
+		try_files $uri $uri.png $uri.jpg $uri.gif $uri.jpeg $uri.jfif /default.jpg = 404;
+	}
+}
+########################################################################################################################################
 sudo nginx -s reload
 sudo nano /etc/nginx/nginx.conf
 DESDE AQUI ME VOY A LA MEIRDA
