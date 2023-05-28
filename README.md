@@ -61,7 +61,7 @@ include /etc/nginx/conf.d/*.conf;
 include /etc/nginx/sites-enabled/*;
 Para el certficado, cambias hinamizada por tu dominio
 mkcert -key-file key.pem -cert-file cert.pem 'a.hinamizada.com' 'api.hinamizada.com' 'assets.hinamizada.com' 'b.hinamizada.com' 'c1.hinamizada.com' 'c2.hinamizada.com' 'c3.hinamizada.com' 'c4.hinamizada.com' 'c5.hinamizada.com' 'c6.hinamizada.com' 'ce.hinamizada.com' 'cho.hinamizada.com' 'c.hinamizada.com' 'hinamizada.com' 'i.hinamizada.com' 'map.hinamizada.com' 'osu.hinamizada.com' 's.hinamizada.com' 'web.hinamizada.com'
-Crear carpeta certs fuera de bancho.py y mover key.pem y cert.pem en certs
+Crear carpeta certs fuera de bancho.py y mover key.pem y cert.pem en certs, debería quedar en /home/hinami/certs/
 sudo nginx -s reload
 sudo xed /etc/hosts
 Insertar estas direcciones en hosts, donde hinamizada es tu dominio:
