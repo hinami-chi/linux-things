@@ -250,6 +250,10 @@ en path_to_gulag colocas la dirección de bancho.py, mi caso:
 	/home/hinami/bancho.py/
 y en debug, le asignas True, mi caso:
 	debug = True
+sudo systemctl enable mariadb
+sudo systemctl enable redis
+sudo systemctl enable nginx
+sudo systemctl start mysqld
 python3.9 main.py
 ```
 
