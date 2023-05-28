@@ -31,7 +31,17 @@ sudo systemctl start nginx
 yay -S redis
 sudo systemctl start redis
 yay -S python39
-mysql -u hinami -p banchopydev < migrations/base.sql
+mysql -u hinami -p banchopydev < bancho.py/migrations/base.sql
+yay -S gnome-keyring
+mysql-workbench
+Add New connection
+connection name: hinami
+username: hinami
+password: hinami
+wget https://bootstrap.pypa.io/get-pip.py
+python3.9 get-pip.py && rm get-pip.py
+python3.9 -m pip install -U pip setuptools
+python3.9 -m pip install -r bancho.py/requirements.txt
 ```
 
 # yuzu EA
