@@ -69,12 +69,12 @@ upstream bancho {
 server {
 	listen 443 ssl;
 
-	# XXX: you'll need to edit this to match your domain (mine's hinamizada.xyz)
-	server_name ~^(?:c[e4]?|osu|b|api)\.hinamizada\.xyz$;
+	# XXX: you'll need to edit this to match your domain (mine's hinamizada.com)
+	server_name ~^(?:c[e4]?|osu|b|api)\.hinamizada\.com$;
 
 	# XXX: you'll need to edit this to match your certificate and key
-	ssl_certificate     /home/hinami/certs/cert.pem;
-	ssl_certificate_key /home/hinami/certs/key.pem;
+	ssl_certificate     /home/hinami/certs/localhost.crt;
+	ssl_certificate_key /home/hinami/certs/localhost.key;
 
 	# TODO: further ssl configuration
 	ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:@SECLEVEL=1";
@@ -92,12 +92,12 @@ server {
 server {
 	listen 443 ssl;
 
-	# XXX: you'll need to edit this to match your domain (mine's hinamizada.xyz)
-	server_name assets.hinamizada.xyz;
+	# XXX: you'll need to edit this to match your domain (mine's hinamizada.com)
+	server_name assets.hinamizada.com;
 
 	# XXX: you'll need to edit this to match your certificate and key
-	ssl_certificate     /home/hinami/certs/cert.pem;
-	ssl_certificate_key /home/hinami/certs/key.pem;
+	ssl_certificate     /home/hinami/certs/localhost.crt;
+	ssl_certificate_key /home/hinami/certs/localhost.key;
 
 	# TODO: further ssl configuration
 	ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:@SECLEVEL=1";
@@ -112,12 +112,12 @@ server {
 server {
 	listen 443 ssl;
 
-	# XXX: you'll need to edit this to match your domain (mine's hinamizada.xyz)
-	server_name a.hinamizada.xyz;
+	# XXX: you'll need to edit this to match your domain (mine's hinamizada.com)
+	server_name a.hinamizada.com;
 
 	# XXX: you'll need to edit this to match your certificate and key
-	ssl_certificate     /home/hinami/certs/cert.pem;
-	ssl_certificate_key /home/hinami/certs/key.pem;
+	ssl_certificate     /home/hinami/certs/localhost.crt;
+	ssl_certificate_key /home/hinami/certs/localhost.key;
 
 	# TODO: further ssl configuration
 	ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:@SECLEVEL=1";
@@ -171,6 +171,7 @@ DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=banchopydev
 OSU_API_KEY=tu_apikey_del_osu
+DOMAIN=hinamizada.com
 MENU_ONCLICK_URL=https://hinamizada.com
 DEBUG=True
 
