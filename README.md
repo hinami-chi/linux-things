@@ -91,6 +91,15 @@ OSU_API_KEY=tu_apikey_del_osu
 MENU_ONCLICK_URL=https://hinamizada.com
 DEBUG=True
 
+abrir vscode
+abrir app/settings.py
+agregar en la línea 33 esto: REDIS_DSN = f"redis://localhost"
+git submodule update --init
+yay -S build-essential
+yay -S base-devel
+python3.9 -m pip install -r requirements.txt
+yay -S cmake
+./main.py
 ```
 
 # yuzu EA
