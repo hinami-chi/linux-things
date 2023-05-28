@@ -141,6 +141,12 @@ mkcert -key-file key.pem -cert-file cert.pem 'a.hinamizada.com' 'api.hinamizada.
 mkcert -install
 Crear carpeta certs fuera de bancho.py y mover key.pem y cert.pem en certs, debería quedar en /home/hinami/certs/
 sudo nginx -s reload
+Si tienes este error: open() "/run/nginx.pid" failed (2: No such file or directory), ejecuta estas líneas:
+	ls /run
+	sudo mkdir -p /run/nginx
+	sudo chmod 755 /run/nginx
+	sudo systemctl restart nginx
+###################
 sudo xed /etc/hosts
 Insertar estas direcciones en hosts, donde hinamizada es tu dominio:
 127.0.0.1 hinamizada.com
@@ -176,6 +182,10 @@ yay -S build-essential
 yay -S base-devel
 python3.9 -m pip install -r requirements.txt
 yay -S cmake
+Si tienes este error: Unable to connect to mysql server, ejecuta esta línea:
+	sudo systemctl start mariadb
+Si tienes este error: Unable to connect to redis server, ejecuta esta línea:
+	sudo systemctl start redis
 ./main.py
 ```
 
