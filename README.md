@@ -56,7 +56,7 @@ sudo xed /etc/nginx/sites-available/bancho.conf
 sudo nginx -s reload
 sudo nano /etc/nginx/nginx.conf
 DESDE AQUI ME VOY A LA MEIRDA
-Pegar esto al final:
+Pegar esto al final, antes de cerrar la llave de http:
 include /etc/nginx/conf.d/*.conf;
 include /etc/nginx/sites-enabled/*;
 Para el certficado, cambias hinamizada por tu dominio
