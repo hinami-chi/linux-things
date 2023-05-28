@@ -19,6 +19,21 @@ Y
 Y
 sudo mysql -u root
 ```
+# bancho.py
+```
+CREATE DATABASE banchopydev;
+CREATE USER 'hinami'@'localhost' IDENTIFIED BY 'hinami';
+GRANT ALL PRIVILEGES ON banchopydev.* TO 'hinami'@'localhost';
+FLUSH PRIVILEGES;
+sudo mysql -u hinami -p
+yay -S nginx
+sudo systemctl start nginx
+yay -S redis
+sudo systemctl start redis
+yay -S python39
+mysql -u hinami -p banchopydev < migrations/base.sql
+```
+
 # yuzu EA
 
 ```
