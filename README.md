@@ -188,6 +188,70 @@ Si tienes este error: Unable to connect to redis server, ejecuta esta línea:
 	sudo systemctl start redis
 ./main.py
 ```
+# guweb
+```
+cd /home/hinami/guweb/
+git submodule init && git submodule update
+python3.9 -m pip install -r ext/requirements.txt
+sudo ln -r -s ext/nginx.conf /etc/nginx/sites-enabled/guweb.conf
+sudo xed ext/nginx.conf # cambia los hinami por tu user y hinamizada.com por tu dominio
+############################################################################################################
+# A simple configuration for NGINX.
+# You won't have to edit much of it other than domain name, and/or port if you change it.
+
+server {
+    #listen 80;
+    # listen [::]:80; # Include this if you want IPv6 support! You wont usually need this but it's cool though.
+    listen 443 ssl; # Include this if you want SSL support! You wont usually need this if you plan on proxying through CF.
+    # listen [::]:443; # Include this if you want IPv6 support! You wont usually need this but it's cool though. 
+
+    # The domain or URL you want this to run guweb off of.
+    server_name osu.hinamizada.com;
+
+    # NOTE: You'll want to change these to your own SSL certificate if any. You wont usually need this if you plan on proxying through CF.
+    ssl_certificate     /home/hinami/certs/localhost.crt;
+    ssl_certificate_key /home/hinami/certs/localhost.key;
+
+    # bancho.py
+    location ~^\/(?:web|api|users|ss|d|p|beatmaps|beatmapsets|community|difficulty-rating)(?:\/.*|$) {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        add_header Access-Control-Allow-Origin *; 
+        proxy_redirect off;
+        proxy_pass http://bancho;
+    }
+
+    # guweb
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        add_header Access-Control-Allow-Origin *; 
+        proxy_redirect off;
+        # 8000 IS CURRENTLY THE DEFAULT ASSIGNED PORT WHEN RUNNING IN HYPERCORN (hypercorn main.py).
+        proxy_pass http://127.0.0.1:8000;
+    }
+}
+#######################################################################################################
+sudo nginx -s reload
+cp ext/config.sample.py config.py
+En vscode abre la carpeta guweb y entra a config.py
+cambia los valores de app_name, secret_key, hCaptcha_sitekey, hCaptcha_secret al que quieras
+en domain colocas tu dominio, en mi caso hinamizada.com
+en credenciales de mysql lo cambias por tus credenciales, mi caso:
+	mysql = {
+	    'db': 'banchopydev',
+	    'host': 'localhost',
+	    'user': 'hinami',
+	    'password': 'hinami',
+	}
+en path_to_gulag colocas la dirección de bancho.py, mi caso:
+	/home/hinami/bancho.py/
+y en debug, le asignas True, mi caso:
+	debug = True
+python3.9 main.py
+```
 
 # yuzu EA
 
