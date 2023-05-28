@@ -79,6 +79,18 @@ Insertar estas direcciones en hosts, donde hinamizada es tu dominio:
 127.0.0.1 ce.hinamizada.com
 127.0.0.1 a.hinamizada.com
 127.0.0.1 i.hinamizada.com
+cp .env.example .env
+xed .env
+
+DB_USER=hinami
+DB_PASS=hinami
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=banchopydev
+OSU_API_KEY=tu_apikey_del_osu
+MENU_ONCLICK_URL=https://hinamizada.com
+DEBUG=True
+
 ```
 
 # yuzu EA
